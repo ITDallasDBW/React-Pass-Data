@@ -24,7 +24,19 @@ const ShowMovies = ({ loading, dataToShow = [] }) => {
   }
 
   return (
+
     <>
+    {loading 
+    ? 
+    new Array(6).fill(0).map((_, index) => (
+      <div className="loading key" key={index}>
+        <img src="" alt="" className="loading poster" />
+        <h3 className="loading title"></h3>
+        <p className="loading year"></p>
+      </div>
+    ))
+    :
+
       <div className="movie">
         {dataToShow.map((movie) => (
           <div key={movie.imdbID} onClick={() => getFeature(movie.imdbID)}>
@@ -34,6 +46,7 @@ const ShowMovies = ({ loading, dataToShow = [] }) => {
           </div>
         ))}
       </div>
+        }
     </>
   );
 };

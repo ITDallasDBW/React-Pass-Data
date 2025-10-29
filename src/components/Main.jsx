@@ -13,7 +13,7 @@ const Main = () => {
   const [inputValue, setInputValue] = useState("");
   const [dataToShow, setDataToShow] = useState([]);
   const [pageDisplay, setPageDisplay] = useState("showHome");
-  const [loading, setLoading] = useState(true); // Start with true
+  const [loading, setLoading] = useState(false); // Start with true
 
   //get search term, setLoading, search for movie,
   //await response, set response to dataToShow, stop loading
@@ -55,7 +55,7 @@ const Main = () => {
         {apiResp.length > 0 && (
           <SortData dataToSort={apiResp} onSort={handleSort} />
         )}
-        
+
         <ShowMovies dataToShow={dataToShow} loading={loading} />
 
       </section>
