@@ -13,47 +13,51 @@ const Main = () => {
   const [inputValue, setInputValue] = useState("");
   const [dataToShow, setDataToShow] = useState([]);
   const [pageDisplay, setPageDisplay] = useState("showHome");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start with true
 
-  //get search term, setLoading, search for movie, 
+  //get search term, setLoading, search for movie,
   //await response, set response to dataToShow, stop loading
   async function getData(inputValue) {
-    setLoading(true);
-    console.log(loading);
-    // setPageDisplay(showMovie);
-    const { data } = await axios.get(
-      //Send input value to API
-      `${BASE_URL}?s=${inputValue}&apikey=${API_KEY}`
-    );
-    setApiResp(data.Search || []); //Store response in apiResp
-    setDataToShow(data.Search);
-    // console.log(data.Search);
-    setLoading(false);
+    try {
+      console.log("Before loading:", loading);
+      setLoading(true);
+      console.log("After setLoading(true):", loading);
+
+      setApiResp([]);
+      setDataToShow([]);
+
+      const { data } = await axios.get(
+        `${BASE_URL}?s=${inputValue}&apikey=${API_KEY}`
+      );
+
+      console.log("Before setting data:", loading);
+      const searchResults = data.Search || [];
+      setApiResp(searchResults);
+      setDataToShow(searchResults);
+
+      console.log("Before setLoading(false):", loading);
+      setLoading(false);
+      console.log("After setLoading(false):", loading);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
   }
 
   const handleSort = (sorted) => {
     setDataToShow(sorted);
-  }
+  };
 
   return (
     <>
       <section className="search">
         <InputFn onSubmit={getData} />
-        {/* Once user searches */}
 
-        {loading && (
-          <h1>Loading...</h1>
+        {apiResp.length > 0 && (
+          <SortData dataToSort={apiResp} onSort={handleSort} />
         )}
-        {apiResp.length > 0 && (// data returns from API, send to sort
-          <>
-            <SortData dataToSort={apiResp} onSort={handleSort} />
-            {/* Sorted movie data set is sent to display fn */}
+        
+        <ShowMovies dataToShow={dataToShow} loading={loading} />
 
-            <ShowMovies dataToShow={dataToShow} loading={loading} />
-            {/* Movies get displayed per sort order */}
-
-          </>
-      )}
       </section>
     </>
   );

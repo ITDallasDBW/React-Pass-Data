@@ -6,37 +6,33 @@ const BASE_URL = `https://www.omdbapi.com/`;
 const API_KEY = "c393ced6";
 
 const ShowMovies = ({ loading, dataToShow = [] }) => {
-  console.log("ShowMovies received", dataToShow, loading);
+  console.log(
+    "ShowMovies render - loading:",
+    loading,
+    "dataLength:",
+    dataToShow.length
+  );
 
   const [feature, setFeature] = useState({});
 
   async function getFeature(imdbID) {
-    const  response  = await axios.get(
+    const response = await axios.get(
       `${BASE_URL}/?apikey=${API_KEY}&i=${imdbID}`
     );
     setFeature(response.data);
-    console.log("GetFeature received", response.data);//
+    console.log("GetFeature received", response.data); //
   }
 
   return (
     <>
       <div className="movie">
-        {loading 
-        ? new Array(6).fill(0).map((_, index) => (
-          <div className="key" key={index}>
-            <div className="loading poster"></div>
-            <h3 className="loading title"></h3>
-            <p className="loading year"></p>
-          </div>
-        )) 
-        : dataToShow.map((movie) => (
+        {dataToShow.map((movie) => (
           <div key={movie.imdbID} onClick={() => getFeature(movie.imdbID)}>
             <img src={movie.Poster} alt="" />
             <h3>{movie.Title}</h3>
             <p>{movie.Year}</p>
           </div>
-        ))
-        }
+        ))}
       </div>
     </>
   );
