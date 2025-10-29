@@ -1,32 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 
-const SortData = (e) => {
-  const sortMethod = e.target.value;
-  let sorted = [...dataToSort];
+const SortData = ({ dataToSort, onSort }) => {
+  console.log("dataToSort received", dataToSort);
 
-  switch (sortMethod) {
-    case "A_Z":
-      sorted.sort((a, b) => a.Title.localeCompare(b.Title));
-      console.log(sorted);
-      break;
-    case "Z_A":
-      sorted.sort((b, a) => a.Title.localeCompare(b.Title));
-      console.log(sorted);
-      break;
-    case "H_L":
-      sorted.sort((b, a) => a.Year.localeCompare(b.Year));
-      console.log(sorted);
-      break;
-    case "L_H":
-      sorted.sort((a, b) => a.Year.localeCompare(b.Year));
-      console.log(sorted);
-      break;
-    default:
-      sorted = dataToSort;
-      console.log(sorted);
-  }
-  onSort(sorted);
-  return <div></div>;
+  const handleSortChange = (e) => {
+    const sortMethod = e.target.value;
+    let sorted = [...dataToSort];
+
+    switch (sortMethod) {
+      case "A_Z":
+        sorted.sort((a, b) => a.Title.localeCompare(b.Title));
+        console.log(sorted);
+        break;
+      case "Z_A":
+        sorted.sort((b, a) => a.Title.localeCompare(b.Title));
+        console.log(sorted);
+        break;
+      case "H_L":
+        sorted.sort((b, a) => a.Year.localeCompare(b.Year));
+        console.log(sorted);
+        break;
+      case "L_H":
+        sorted.sort((a, b) => a.Year.localeCompare(b.Year));
+        console.log(sorted);
+        break;
+      default:
+        sorted = dataToSort;
+        console.log(sorted);
+    }
+
+    onSort(sorted);
+      };
+
+    return (
+      <>
+        <h3>This is SortData</h3>
+        <label htmlFor="sort-select">Sort by:</label>
+        <select id="sort-select" onChange={handleSortChange}>
+          <option value="">Choose sorting option...</option>
+          <option value="A_Z">Alpha A</option>
+          <option value="Z_A">Alpha Z</option>
+          <option value="L_H">Oldest First</option>
+          <option value="H_L">Newest First</option>
+        </select>
+      </>
+    );
 };
 
-export default Sort;
+export default SortData;
