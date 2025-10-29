@@ -34,7 +34,7 @@ const SortData = ({ dataToSort, onSort }) => {
 
     return (
       <>
-        <h3>This is SortData</h3>
+        <h3>This goes through SortData</h3>
         <label htmlFor="sort-select">Sort by:</label>
         <select id="sort-select" onChange={handleSortChange}>
           <option value="">Choose sorting option...</option>

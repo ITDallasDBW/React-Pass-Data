@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import ShowMovies from "./ShowMovies";
 import SortData from "./SortData";
+import InputFn from "./InputFn";
 
 //API CREDS
 const BASE_URL = `https://www.omdbapi.com/`;
@@ -14,22 +15,11 @@ const Main = () => {
   const [pageDisplay, setPageDisplay] = useState("showHome");
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (event) => {
-    setInputValue(event.target.value);
-  };
-  // const handleSubmit = async (inputValue) => {
-  //   const results = await movieSearch(inputValue);
-  //   setApiResp(results);
-  // }
-
-
-  const handleSubmit = () => {
-    getData(inputValue);
-  };
-
-
+  //get search term, setLoading, search for movie, 
+  //await response, set response to dataToShow, stop loading
   async function getData(inputValue) {
     setLoading(true);
+    console.log(loading);
     // setPageDisplay(showMovie);
     const { data } = await axios.get(
       //Send input value to API
@@ -37,7 +27,7 @@ const Main = () => {
     );
     setApiResp(data.Search || []); //Store response in apiResp
     setDataToShow(data.Search);
-    console.log(data.Search);
+    // console.log(data.Search);
     setLoading(false);
   }
 
@@ -48,23 +38,20 @@ const Main = () => {
   return (
     <>
       <section className="search">
-        <input
-          type="text"
-          id="idBox"
-          onChange={handleInputChange}
-          onKeyDown={(event) => event.key === "Enter" && handleSubmit()}
-        />
-        <button id="idBtn" onClick={handleSubmit}>
-          Submit
-        </button>
-        
-        {apiResp.length > 0 && (
-          //Once user searches...
+        <InputFn onSubmit={getData} />
+        {/* Once user searches */}
+
+        {loading && (
+          <h1>Loading...</h1>
+        )}
+        {apiResp.length > 0 && (// data returns from API, send to sort
           <>
-            {/* <p>This is for {apiResp[0]?.Title}</p>
-            {apiResp[1] && <p>This is for {apiResp[1]?.Title}</p>} */}
             <SortData dataToSort={apiResp} onSort={handleSort} />
-            <ShowMovies dataToShow={dataToShow} />
+            {/* Sorted movie data set is sent to display fn */}
+
+            <ShowMovies dataToShow={dataToShow} loading={loading} />
+            {/* Movies get displayed per sort order */}
+
           </>
       )}
       </section>
