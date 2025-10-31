@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const SortData = ({ dataToSort, onSort }) => {
-  console.log("dataToSort received", dataToSort);
+  // console.log("dataToSort received", dataToSort);
 
   const handleSortChange = (e) => {
     const sortMethod = e.target.value;
@@ -10,23 +10,23 @@ const SortData = ({ dataToSort, onSort }) => {
     switch (sortMethod) {
       case "A_Z":
         sorted.sort((a, b) => a.Title.localeCompare(b.Title));
-        console.log(sorted);
+        // console.log(sorted);
         break;
       case "Z_A":
         sorted.sort((b, a) => a.Title.localeCompare(b.Title));
-        console.log(sorted);
+        // console.log(sorted);
         break;
       case "H_L":
         sorted.sort((b, a) => a.Year.localeCompare(b.Year));
-        console.log(sorted);
+        // console.log(sorted);
         break;
       case "L_H":
         sorted.sort((a, b) => a.Year.localeCompare(b.Year));
-        console.log(sorted);
+        // console.log(sorted);
         break;
       default:
         sorted = dataToSort;
-        console.log(sorted);
+        // console.log(sorted);
     }
 
     onSort(sorted);
@@ -34,7 +34,7 @@ const SortData = ({ dataToSort, onSort }) => {
 
     return (
       <>
-        <h3>This goes through SortData</h3>
+        <h3>This is SortData</h3>
         <label htmlFor="sort-select">Sort by:</label>
         <select id="sort-select" onChange={handleSortChange}>
           <option value="">Choose sorting option...</option>
