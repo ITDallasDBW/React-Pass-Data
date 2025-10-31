@@ -11,7 +11,7 @@ const API_KEY = "c393ced6";
 
 const Main = () => {
   const [apiResp, setApiResp] = useState([]);
-  const [inputValue, setInputValue] = useState("");
+  // const [inputValue, setInputValue] = useState("");
   const [dataToShow, setDataToShow] = useState([]);
   const [loading, setLoading] = useState(false); // Start with true
   const [feature, setFeature] = useState({});
@@ -19,12 +19,11 @@ const Main = () => {
   //Reset to default
   const handleHome = () => {
     setApiResp([]);
-    setInputValue("");
     setDataToShow([]);
     setLoading(false);
     setFeature({});
   };
-  
+
   //get search term, setLoading, search for movie,
   //await response, set response to dataToShow, stop loading
   async function getData(inputValue) {
@@ -48,11 +47,10 @@ const Main = () => {
   //check if feature is empty (whether to display list or feature)
   const isFeatureEmpty = Object.keys(feature).length === 0;
 
-  // go back to movies
+  // go back to movie list
   const handleBackToMovies = () => {
     setFeature({});
   };
-
 
   return (
     <>
@@ -72,7 +70,7 @@ const Main = () => {
         ) : (
           <>
             <button onClick={handleBackToMovies}>Back to Movies</button>
-            <ShowFeature feature={feature} />
+            <ShowFeature currentLoading={loading} feature={feature} />
           </>
         )}
       </section>

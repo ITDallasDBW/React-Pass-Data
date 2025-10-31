@@ -3,12 +3,6 @@ import React from "react";
 const LoadList
  = () => {
 
-  //put in if else for showing LoadList
-  //  movie list or LoadList
-  //  feature
-  // if LoadList
-  // Movie show this, else if LoadList
-  // Feature show this
   return (
     <>
     
@@ -18,7 +12,7 @@ const LoadList
           <h3 className="loading title"></h3>
           <p className="loading year"></p>
         </div>
-      ))}{" "}
+      ))}
     </>
   );
 };

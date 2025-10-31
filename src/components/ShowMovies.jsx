@@ -6,9 +6,14 @@ import LoadList from "./LoadList";
 const BASE_URL = `https://www.omdbapi.com/`;
 const API_KEY = "c393ced6";
 
-const ShowMovies = ({ currentLoading, updateLoading, dataToShow = [], setFeature }) => {
-
+const ShowMovies = ({
+  currentLoading,
+  updateLoading,
+  dataToShow = [],
+  setFeature,
+}) => {
   async function getFeature(imdbID) {
+    setFeature({name: 'filler'})
     updateLoading(true);
     const { data } = await axios.get(
       `${BASE_URL}/?apikey=${API_KEY}&i=${imdbID}`
@@ -21,9 +26,8 @@ const ShowMovies = ({ currentLoading, updateLoading, dataToShow = [], setFeature
 
   return (
     <>
-    <h3>This is ShowMovies</h3>
+      <h3>This is ShowMovies</h3>
       {currentLoading ? (
-        
         <LoadList />
       ) : (
         <div className="movie">

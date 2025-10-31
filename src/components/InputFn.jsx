@@ -10,6 +10,7 @@ const [inputValue, setInputValue] = useState("")
 
   const handleSubmit = () => {
         onSubmit(inputValue);
+        setInputValue("")
   };
 
   return (
@@ -18,6 +19,7 @@ const [inputValue, setInputValue] = useState("")
       <input
         type="text"
         id="idBox"
+        value={inputValue}
         onChange={handleInputChange}
         onKeyDown={(event) => event.key === "Enter" && handleSubmit()}
       />
